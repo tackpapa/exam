@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>pokes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+</head>
+
+<body><br />
+  <div class="col-md-2 col-md-offset-9">
+  <a href="/logout"><h4>Logout</h4></a>
+  </div><br />
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hello, {{session['name']}}</h2>
+<div class="col-md-4 col-sm-offset-1" style="border:1px solid black;">
+{% for x in pokes %}
+
+{% if x['hittername'] != session['name']%}
+<h4>{{x['hittername']}} poked you {{x['total']}} times.</h4>
+{% endif %}
+{% endfor %}
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<hr />
+
+  <div class="container col-md-10 col-sm-offset-1">
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Alias</th>
+          <th>Email Address</th>
+          <th>Poke History</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for x in users %}
+        {% if x['name']!= session['name'] %}
+
+        <tr>
+          <td>{{x['name']}}</td>
+          <td>{{x['alias']}}</td>
+          <td>{{x['email']}}</td>
+          <td>{{x['poked']}}</td>
+          <td>
+            <form action="/poke" method="post">
+              <input type="hidden" name="user_id" value="{{x['id']}}">
+              <input type="submit" value="Poke!" />
+            </form>
+
+
+          </td>
+
+        </tr>
+        {% endif %}
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+</body>
+
+</html>
